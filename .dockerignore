@@ -1,0 +1,5 @@
+xhttp-splitter
+*.md
+.git
+.gitignore
+examples/*.log

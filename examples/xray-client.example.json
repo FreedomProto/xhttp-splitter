@@ -1,0 +1,41 @@
+{
+  "log": { "loglevel": "warning" },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": { "auth": "noauth", "udp": true },
+      "sniffing": { "enabled": true, "destOverride": ["http", "tls", "quic"] }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "127.0.0.1",
+            "port": 10443,
+            "users": [{ "id": "YOUR-UUID-HERE", "encryption": "none" }]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "path": "/YOUR-PATH",
+          "host": "your.edge-domain.example",
+          "mode": "packet-up",
+          "extra": {
+            "scMaxEachPostBytes": "2500-3500",
+            "scMinPostsIntervalMs": "15-40",
+            "xPaddingBytes": "100-200"
+          }
+        }
+      }
+    }
+  ]
+}
